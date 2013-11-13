@@ -1,0 +1,22 @@
+{
+  "name": "WellBeing",
+  "version": "0.0.0",
+  "authors": [
+    "Smita Busar <smitabusar@gmail.com>"
+  ],
+  "description": "Find alternative Remedies for common health issues",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.0",
+    "underscore": "~1.5.2",
+    "jquery": "~2.0.3"
+  }
+}

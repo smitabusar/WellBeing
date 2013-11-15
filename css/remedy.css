@@ -1,0 +1,17 @@
+.remedyCSS {
+	display: inline-block;
+	border:0px;
+	border-radius: 5px;
+	width:300px;
+	padding: 10px;
+
+}
+.remedyCSS:nth-of-type(odd) {
+	background-color: #FFFBCC;
+}
+.remedyCSS:nth-of-type(even) {
+	background-color: #D6D6D6;
+}
+.remedyCSS strong {
+	color : red;
+}

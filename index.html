@@ -2,13 +2,27 @@
     <head>
         <meta charset="utf-8">
         <title>Well Being</title>
+        <!--custom css-->
+        <link type="text/css" rel="stylesheet" href="/css/remedy.css"/>
+
+        <!--js frameworks using bower-->
         <script src="/bower_components/jquery/jquery.js"></script>
         <script src="/bower_components/underscore/underscore-min.js"></script>
         <script src="/bower_components/backbone/backbone-min.js"></script>
+        
+        <!--custom js-->
         <script src="/js/main.js"></script>
+        <script src="/js/models/remedy.js"></script>
+        <script src="/js/collections/remedies.js"></script>
+        <script src="/js/views/remedyView.js"></script>
         <script src="/js/routers/router.js"></script>
     </head>
     <body>
         <p>Find alternative Remedies for common health issues</p>
+        <script>
+            $(document).ready(function(){
+                wellBeing.router.start();
+            })
+        </script>
     </body>
 </html>

@@ -4,7 +4,7 @@ wellBeing.AilmentMenuView=Backbone.View.extend({
 	render:function(){
 		var source=$('#ailmentMenuTemplate').html();
 		var template = Handlebars.compile(source);
-		var html=template(this.model);
+		var html=template(this.model.toJSON());
 		this.$el.html(html);
 	},
 	events:{

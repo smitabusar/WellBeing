@@ -12,7 +12,7 @@ wellBeing.RemedyView=Backbone.View.extend({
 		var source=$('#remedyTemplate').html();
 		var template = Handlebars.compile(source);
 		var html=template(this.model.toJSON());
-		console.log(html)
+		//console.log(html)
 		this.$el.html(html);
 	}
 });

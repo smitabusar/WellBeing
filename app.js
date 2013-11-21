@@ -22,33 +22,16 @@ var ailments=[{id:1,
 	preventions:["Wash Hands regularly"],
 	likes:3
 }];
-/*var cures=[{id:1,
+var cure={id:1,
 	symptom:"Cold",
-	Alias:"Running nose"
-	remedies:[{type:"Home Remedy",method:"Boil vicks vaporrub in water and inhale",caution:"Be careful of hot water"},
-	{type:"Home Remedy",method:"Apply warm ghee on chest before nap",ageRange:"0-5 years"},
-	{type:"Home Remedy",ingridents:"jaggery,ajwain,water",method:"boil 1/2 cup water, jaggery and ajwain to form 2-3 spoon syrup. Drink it.",ageRange:"0-5 years", dosage:"1 tsp 3-4 times a day"},
+	alias:"Running nose",
+	cureTypes:["HomeRemedy","AromaTherapy","General"],
+	remedies:[{type:"HomeRemedy",method:"Boil vicks vaporrub in water and inhale",caution:"Be careful of hot water"},
+	{type:"HomeRemedy",method:"Apply warm ghee on chest before nap",ageRange:"0-5 years"},
+	{type:"HomeRemedy",ingridents:"jaggery,ajwain,water",method:"boil 1/2 cup water, jaggery and ajwain to form 2-3 spoon syrup. Drink it.",ageRange:"0-5 years", dosage:"1 tsp 3-4 times a day"},
 	{type:"Aromatherapy",method:"Take a shower with xx oil"},
 	{type:"General",method:"sleep with the slanted head. Especially effective for kids"}
-]},
-{id:2,
-	symptom:"cough",
-	Alias:"sore throat"
-	remedies:[{type:"General",method:"saliner gargles",caution:"Be careful of hot water",dosage:"atleast 4 times a day"},
-	{type:"Home Remedy",ingridents:"ginger,honey",method:"grate ginger and mix with 1tsp honey. eat it",ageRange:"2 year plus", dosage:"4-5 times a day",caution : "Not applicable to infants"},
-	{type:"General",steps:"warm seasme oil. rub on palms and feet"},
-]},
-{id:3,
-	ailment:"allergy",
-	symptom:"cold,hives",
-	remedies:[{type:"first aid",method:"Benedryl",dosage:"as provided on the bottle"}
-]}];*/
-
-
-app.get("/remedies",function(req,res){
-	res.send(remediesDB);
-	//res.json(remediesDB);
-});
+]};
 
 app.get("/ailments",function(req,res){
 	res.send(ailments);
@@ -56,11 +39,25 @@ app.get("/ailments",function(req,res){
 });
 
 app.get("/ailments/:id",function(req,res){ //not working
-	var id=req.param("id"),
-		filter="{id:" + id + "}",
-		ailment=_.findWhere(ailments,{id:1});
+	var id=parseInt(req.param("id")),
+		ailment=_.findWhere(ailments,{id:id});
 	console.log(filter, ailment);
 	res.send(ailment);
+	//res.json(remediesDB);
+});
+
+app.get("/cureTypes",function(req,res){
+	var remedies=_.pick(cure,"remedies").remedies;
+	var cureTypes=_.uniq(_.pluck(remedies,"type"));
+	cureTypes=_.map(cureTypes,function(type){return {"type":type}});
+	//console.log(cureTypes);
+	res.send(cureTypes);
+	//res.json(remediesDB);
+});
+
+app.get("/remedies",function(req,res){
+	//console.log(_.pick(cure,"remedies"));
+	res.send(_.pick(cure,"remedies").remedies);
 	//res.json(remediesDB);
 });
 

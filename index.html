@@ -32,6 +32,7 @@
         <script src="/js/models/remedy.js"></script>
         <script src="/js/collections/remedies.js"></script>
         <script src="/js/views/remedyView.js"></script>
+        <script src="/js/views/remediesView.js"></script>
         <script src="/js/routers/router.js"></script>
     </head>
     <body>
@@ -54,13 +55,16 @@
                 </script>
             </div>
             <div id="cureTypes">
-                display collection icons
+                <ul>
+                    <script id="cureTypeTemplate" type="text/x-handlebars-template">
+                        <img src="/images/{{type}}.jpg" alt="{{type}}"/>
+                    </script>
+                </ul>
             </div>
             <div id="cureDetails">
                 <script id="remedyTemplate" type="text/x-handlebars-template">
-                    <h3> {{type}} </h3><hr/>
                     <p> {{ingridents}}</p>
-                    <p> {{prepration}}</p>
+                    <p> {{method}}</p>
                     <p> {{dosage}}</p><hr/>
                     <strong>{{caution}}</strong>
                 </script>

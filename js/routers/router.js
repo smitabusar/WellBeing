@@ -31,17 +31,18 @@ wellBeing.router = new (Backbone.Router.extend({
 
 	showRemedies: function(){
 		console.log ("Getting Remedies");
-		wellBeing.remedies1=new wellBeing.Remedies();
-		wellBeing.remedies1.fetch({
-			success: function (){
+		wellBeing.remedies=new wellBeing.Remedies();
+		wellBeing.remedies.fetch({
+			success: function (collection){
 				console.log("in success of collection fetch")
-				console.log(wellBeing.remedies1);
-				_.each(wellBeing.remedies1.models,function(remedyObj){
+				console.log(wellBeing.remedies);
+				/*_.each(wellBeing.remedies1.models,function(remedyObj){
 					wellBeing.remedyView=new wellBeing.RemedyView({model:remedyObj});
 					wellBeing.remedyView.render();
 					$("#cureType").append(wellBeing.remedyView.$el);
-				});
-				
+				});*/
+				wellBeing.remediesView=new wellBeing.RemediesView({collection: collection})
+				wellBeing.remediesView.renderCureType("HomeRemedy");
 			}
 		});
 
@@ -72,9 +73,9 @@ wellBeing.router = new (Backbone.Router.extend({
 
 	showSearchPage:function(){
 		//this.showRemedy();
-		//this.showRemedies();
+		this.showRemedies();
 		//this.showAilment();
-			this.showAilmentsMenu();
+		this.showAilmentsMenu();
 	}
 }));
  //Backbone.history.start({root: "/"});

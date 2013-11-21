@@ -1,28 +1,107 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Well Being</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--bower bootstrap css-->
+        <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen"/>
+        <!--<link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/assets/css/bootstrap-responsive.css"/>-->
+
         <!--custom css-->
+        <link type="text/css" rel="stylesheet" href="/css/main.css"/>
         <link type="text/css" rel="stylesheet" href="/css/remedy.css"/>
+        <link type="text/css" rel="stylesheet" href="/css/ailment.css"/>
+
 
         <!--js frameworks using bower-->
         <script src="/bower_components/jquery/jquery.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/handlebars/handlebars.js"></script>
         <script src="/bower_components/underscore/underscore-min.js"></script>
         <script src="/bower_components/backbone/backbone-min.js"></script>
         
         <!--custom js-->
         <script src="/js/main.js"></script>
+        <script src="/js/common.js"></script>
+        <script src="/js/models/ailment.js"></script>
+        <script src="/js/collections/ailments.js"></script>
+        <script src="/js/views/ailmentMenuView.js"></script>
+        <script src="/js/views/ailmentView.js"></script>
+        <script src="/js/views/ailmentsView.js"></script>
         <script src="/js/models/remedy.js"></script>
         <script src="/js/collections/remedies.js"></script>
         <script src="/js/views/remedyView.js"></script>
         <script src="/js/routers/router.js"></script>
     </head>
     <body>
-        <p>Find alternative Remedies for common health issues</p>
-        <script>
-            $(document).ready(function(){
-                wellBeing.router.start();
-            })
-        </script>
+        <header>
+            <img src="/images/header2.jpg" alt="Header Image"/>
+            <h1>Well Being <span>Live Happy :) and Healthy :))<span> </h1> 
+        </header>
+        <div id="searchBar">
+            <form action="post" id ="frmSymptoms">
+                <input type="text" name="txtSymptom" id="txtSymptom" Placeholder="Enter Symptom"/>
+                <span class="button" id="showFind">Find</span>
+                <span class="button" id="showAdd">Add Page</span>
+                <span class="button" id="fbLogin"> Facebook Login </span>
+            </form>
+        </div>
+        <div id="searchPage">
+            <div id="ailments">
+                <script id="ailmentMenuTemplate" type="text/x-handlebars-template">
+                    {{name}}
+                </script>
+            </div>
+            <div id="cureTypes">
+                display collection icons
+            </div>
+            <div id="cureDetails">
+                <script id="remedyTemplate" type="text/x-handlebars-template">
+                    <h3> {{type}} </h3><hr/>
+                    <p> {{ingridents}}</p>
+                    <p> {{prepration}}</p>
+                    <p> {{dosage}}</p><hr/>
+                    <strong>{{caution}}</strong>
+                </script>
+            </div>
+            <aside>
+                    <script id="ailmentInfo" type="text/x-handlebars-template">
+                        <div id="info">
+                            {{info}}
+                            <ul>
+                                {{#each symptoms}}
+                                    <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div id="preventions">
+                            <ul>
+                                {{#each preventions}}
+                                    <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                        </div> 
+                    </script>
+            </aside>
+        </div>
+        <div id="addPage">
+            <form id="frmAdd">
+                <input type="text" name="" id="">
+            </form>
+        </div>
+        <footer>
+            <p>Find alternative Remedies or first aid tips for common ailments.</p>
+            <p>The treatments / first aid mentioned here are as per people experience. Please consult your doctor for the treatments.</p>
+        </footer>
+
+    <script>
+        $(document).ready(function(){
+            $("#addPage").css("visibility","hidden");
+            showAddPage();
+            fbLogin();
+            wellBeing.router.start();
+        })
+    </script>
     </body>
 </html>

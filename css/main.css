@@ -1,0 +1,63 @@
+@charset'utf-8';
+/*Header Style*/
+header{
+    margin:10px;
+    padding:10px;
+}
+header img{
+	height:50px;
+	width:30px;
+	float:left;
+}
+header h1 {
+    color: rgba(83,52,25,1);
+    font-family:Georgia,'Times New Roman';
+    text-transform:uppercase;
+    text-shadow:2px 2px 5px rgba(164,82,9,.5);
+}
+header span {
+    color: rgba(83,52,25,.8);
+    font-family:Georgia,'Times New Roman';
+    text-transform:capitalize;
+    font-style:italic;
+    font-size:.5em;
+}
+/*Footer Style*/
+footer {
+    padding:10px;
+    clear:both;
+}
+footer p {
+    color: rgba(83,52,25,.8);
+    font-family:Georgia,'Times New Roman';
+    text-transform:capitalize;
+    text-align:center;
+}
+/*Serach Bar Style*/
+#searchBar{
+    margin:10px;     
+    padding-left: 10px;
+    padding-right:10px;
+}
+#searchBar span{
+    float:right;
+}
+#cureType{
+    float:left;
+    width:10%;
+}
+#cureDetails{
+    float:left;
+    width:60%;
+}
+aside{
+    float:right;
+    width:30%;
+}
+.button{
+    background-color: #FFFFCC;
+    border-radius: 2em;
+    border:1px solid #CCCCCC;
+    padding:5 px;
+    margin-left:20px;
+}

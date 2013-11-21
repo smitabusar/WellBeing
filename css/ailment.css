@@ -1,0 +1,20 @@
+.ailmentCSS {
+	display: inline-block;
+	border:0px;
+	border-radius: 5px;
+	width:300px;
+	padding: 10px;
+
+}
+#info {
+	background-color: #FFFBCC;
+}
+#preventions {
+	background-color: #D6D6D6;
+}
+
+.menu {
+	background-color: #FFFCCC;
+	border-radius:2 em;
+	padding:10px;
+}

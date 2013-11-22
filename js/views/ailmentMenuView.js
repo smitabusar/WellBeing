@@ -1,6 +1,5 @@
 wellBeing.AilmentMenuView=Backbone.View.extend({
 	tagName:"span",
-	className:"menu",
 	render:function(){
 		var source=$('#ailmentMenuTemplate').html();
 		var template = Handlebars.compile(source);

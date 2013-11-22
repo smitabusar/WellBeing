@@ -3,32 +3,36 @@ wellBeing.router = new (Backbone.Router.extend({
 		Backbone.history.start({root: "/"});
 	},
 	routes : {
-		"" : "showSearchPage",
-		"remedy" : "showRemedy",
-		"remedies" : "showRemedies"
-		//"ailments/:id" : "ailments"
+		"search" : "showSearchPage",
+		"/symptom:/symptom" : "showSearchPage",
 	},
 	
-	showRemedy: function(){
-		console.log ("Getting Remedy");
-		//added models
-		wellBeing.remedy1 = new wellBeing.Remedy();
-		wellBeing.remedy1.set({ingridents:"Honey,Ginger",prepration:"Boil water, grated ginger and honey.",caution:"Not for infants",dosage:"atleast 3 times a day"});
-		wellBeing.remedy2 = new wellBeing.Remedy({ingridents:"Water & salt",prepration:"Boil water and salt.",usage:"gargle with warm saline solution",dosage:"atleast 4 times a day"});
-		//linked model to views
-		wellBeing.remedyView1=new wellBeing.RemedyView({model:wellBeing.remedy1});
-		wellBeing.remedyView1.render();
-		$("#cureDetails").append(wellBeing.remedyView1.$el);
-		wellBeing.remedyView2=new wellBeing.RemedyView({model:wellBeing.remedy2});
-		wellBeing.remedyView2.render();
-		$("#cureDetails").append(wellBeing.remedyView2.$el);
-		//added a collection
-		wellBeing.remedies= new wellBeing.Remedies();
-		wellBeing.remedies.create({ingridents:"Black Pepper,Ginger",prepration:"Mix 1tsp Black Pepper and 1 tsp honey.",caution:"Not for infants"});
-		wellBeing.remedies.create({});//defines a default object or wellBeing.remedies.create();
+	fetchData:function(symptom){
+		console.log ("showing Ailments");
+		wellBeing.ailments = new wellBeing.Ailments();
+		wellBeing.ailments.fetch({
+			success: function(collection){
+				console.log(wellBeing.ailments);
+				wellBeing.ailmentsView=new wellBeing.AilmentsView({collection: collection}); 
+				wellBeing.ailmentsView.render();
+			}
+		});
+		wellBeing.remedies=new wellBeing.Remedies();
+		wellBeing.remedies.fetch({
+			success: function (collection){
+				console.log(wellBeing.remedies);
+			}
+		});
+		wellBeing.cureTypes=new wellBeing.CureTypes();
+		wellBeing.cureTypes.fetch({
+			success: function (collection){
+				console.log(wellBeing.remedies);
+				wellBeing.cureTypesView=new wellBeing.CureTypesView({collection: collection})
+				wellBeing.cureTypesView.render();
+			}
+		});
 
 	},
-
 	showRemedies: function(){
 		console.log ("Getting Remedies");
 		wellBeing.remedies=new wellBeing.Remedies();
@@ -36,11 +40,6 @@ wellBeing.router = new (Backbone.Router.extend({
 			success: function (collection){
 				console.log("in success of collection fetch")
 				console.log(wellBeing.remedies);
-				/*_.each(wellBeing.remedies1.models,function(remedyObj){
-					wellBeing.remedyView=new wellBeing.RemedyView({model:remedyObj});
-					wellBeing.remedyView.render();
-					$("#cureType").append(wellBeing.remedyView.$el);
-				});*/
 				wellBeing.remediesView=new wellBeing.RemediesView({collection: collection})
 				wellBeing.remediesView.renderCureType("HomeRemedy");
 			}
@@ -73,9 +72,26 @@ wellBeing.router = new (Backbone.Router.extend({
 
 	showSearchPage:function(){
 		//this.showRemedy();
-		this.showRemedies();
+		//this.showRemedies();
 		//this.showAilment();
-		this.showAilmentsMenu();
+		//this.showAilmentsMenu();
+		//this.fetchData();
+		var strSymptom=$(txtSymptom).val();
+		wellBeing.symptom=new wellBeing.Symptom({id:strSymptom});
+		wellBeing.symptom.fetch({
+			success:function(){
+				console.log(wellBeing.symptom);
+				wellBeing.ailemnts=new wellBeing.Ailments(wellBeing.symptom.attributes[0]);
+				wellBeing.ailmentsView=new wellBeing.AilmentsView({collection: wellBeing.ailemnts}); 
+				wellBeing.ailmentsView.render();
+				wellBeing.remedies=new wellBeing.Remedies(wellBeing.symptom.attributes[1]);
+				wellBeing.cureTypes=new wellBeing.CureTypes(wellBeing.symptom.attributes[2]);
+				wellBeing.cureTypesView=new wellBeing.CureTypesView({collection: wellBeing.cureTypes})
+				wellBeing.cureTypesView.render();
+			}
+		});
+
+		
 	}
 }));
  //Backbone.history.start({root: "/"});

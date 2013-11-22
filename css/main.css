@@ -4,9 +4,9 @@ header{
     margin:10px;
     padding:10px;
 }
-header img{
-	height:50px;
-	width:30px;
+.jumbotron img{
+	height:200px;
+	width:150px;
 	float:left;
 }
 header h1 {
@@ -35,24 +35,15 @@ footer p {
 }
 /*Serach Bar Style*/
 #searchBar{
-    margin:10px;     
-    padding-left: 10px;
-    padding-right:10px;
+    margin-left:auto;
+    margin-right:auto;
+    width:50%;
 }
-#searchBar span{
-    float:right;
-}
-#cureType{
-    float:left;
-    width:10%;
-}
-#cureDetails{
-    float:left;
-    width:60%;
-}
-aside{
-    float:right;
-    width:30%;
+.contentPage{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 50px;
+    width:70%;
 }
 .button{
     background-color: #FFFFCC;

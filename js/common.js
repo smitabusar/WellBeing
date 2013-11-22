@@ -9,3 +9,9 @@ var fbLogin = function(){
 		alert("integrate Facebook login");
 	});
 }
+var find=function(){
+	$("#showFind").on("click",function(){
+		//alert("find clicked")
+		wellBeing.router.showSearchPage();
+	});
+}

@@ -5,7 +5,7 @@
         <title>Well Being</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--bower bootstrap css-->
-        <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" media="screen"/>
+        <link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/css/bootstrap.min.css"/>
         <!--<link type="text/css" rel="stylesheet" href="/bower_components/bootstrap/assets/css/bootstrap-responsive.css"/>-->
 
         <!--custom css-->
@@ -16,7 +16,7 @@
 
         <!--js frameworks using bower-->
         <script src="/bower_components/jquery/jquery.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/bootstrap/js/bootstrap.min.js"></script>
         <script src="/bower_components/handlebars/handlebars.js"></script>
         <script src="/bower_components/underscore/underscore-min.js"></script>
         <script src="/bower_components/backbone/backbone-min.js"></script>
@@ -24,6 +24,7 @@
         <!--custom js-->
         <script src="/js/main.js"></script>
         <script src="/js/common.js"></script>
+        <script src="/js/models/symptom.js"></script>
         <script src="/js/models/ailment.js"></script>
         <script src="/js/collections/ailments.js"></script>
         <script src="/js/views/ailmentMenuView.js"></script>
@@ -33,61 +34,91 @@
         <script src="/js/collections/remedies.js"></script>
         <script src="/js/views/remedyView.js"></script>
         <script src="/js/views/remediesView.js"></script>
+        <script src="/js/models/cureType.js"></script>
+        <script src="/js/collections/cureTypes.js"></script>
+        <script src="/js/views/cureTypeView.js"></script>
+        <script src="/js/views/cureTypesView.js"></script>
         <script src="/js/routers/router.js"></script>
     </head>
     <body>
-        <header>
-            <img src="/images/header2.jpg" alt="Header Image"/>
-            <h1>Well Being <span>Live Happy :) and Healthy :))<span> </h1> 
-        </header>
+
+        <div class="jumbotron">
+              <div class="container">
+                <h1>Well Being</h1>
+                <p>Live Happy :) and Healthy :)).<p>
+                <!--<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>-->
+              </div>
+        </div>
+
         <div id="searchBar">
             <form action="post" id ="frmSymptoms">
-                <input type="text" name="txtSymptom" id="txtSymptom" Placeholder="Enter Symptom"/>
-                <span class="button" id="showFind">Find</span>
-                <span class="button" id="showAdd">Add Page</span>
-                <span class="button" id="fbLogin"> Facebook Login </span>
+                <div class="input-group">
+                  <input type="text" name="txtSymptom" id="txtSymptom" class="form-control" Placeholder="Enter Symptom">
+                  <span class="input-group-addon" id="showFind"><span class="glyphicon glyphicon-search"></span></span>
+                </div>
             </form>
         </div>
-        <div id="searchPage">
-            <div id="ailments">
-                <script id="ailmentMenuTemplate" type="text/x-handlebars-template">
-                    {{name}}
-                </script>
-            </div>
-            <div id="cureTypes">
-                <ul>
-                    <script id="cureTypeTemplate" type="text/x-handlebars-template">
-                        <img src="/images/{{type}}.jpg" alt="{{type}}"/>
-                    </script>
-                </ul>
-            </div>
-            <div id="cureDetails">
-                <script id="remedyTemplate" type="text/x-handlebars-template">
-                    <p> {{ingridents}}</p>
-                    <p> {{method}}</p>
-                    <p> {{dosage}}</p><hr/>
-                    <strong>{{caution}}</strong>
-                </script>
-            </div>
-            <aside>
-                    <script id="ailmentInfo" type="text/x-handlebars-template">
-                        <div id="info">
-                            {{info}}
-                            <ul>
-                                {{#each symptoms}}
-                                    <li>{{this}}</li>
-                                {{/each}}
-                            </ul>
+
+        <div id="searchPage" class="contentPage">
+            <div class="row">
+                <!--remedies-->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div id="cureTypes">
+                            <script id="cureTypeTemplate" type="text/x-handlebars-template">
+                                  <button type="button" class="btn btn-default">{{type}}</button>
+                            </script>
                         </div>
-                        <div id="preventions">
-                            <ul>
-                                {{#each preventions}}
-                                    <li>{{this}}</li>
-                                {{/each}}
-                            </ul>
-                        </div> 
-                    </script>
-            </aside>
+                    </div>
+
+                    <div class="row">
+                        <div id="cureDetails">
+                            <script id="remedyTemplate" type="text/x-handlebars-template">
+                                <div class="list-group">
+                                    <p class="list-group-item-text">{{ingridents}}</p>
+                                    <p class="list-group-item-text">{{method}}</p>
+                                    <p class="list-group-item-text">{{dosage}}</p>
+                                    <strong>{{caution}}</strong>
+                                </div>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <!--ailments-->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div id="ailments">
+                            <script id="ailmentMenuTemplate" type="text/x-handlebars-template">
+                              <button type="button" class="btn btn-default">{{name}}</button>
+                            </script>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <aside>
+                            <script id="ailmentInfo" type="text/x-handlebars-template">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading" id="info">{{info}}</div>
+                                    <div class="panel-body">
+                                        <ul>
+                                            {{#each symptoms}}
+                                                <li>{{this}}</li>
+                                            {{/each}}
+                                        </ul>
+                                        <div id="preventions">
+                                            <ul>
+                                                {{#each preventions}}
+                                                    <li>{{this}}</li>
+                                                {{/each}}
+                                            </ul>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </script>
+                        </aside>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="addPage">
             <form id="frmAdd">
@@ -105,6 +136,7 @@
             showAddPage();
             fbLogin();
             wellBeing.router.start();
+            find();
         })
     </script>
     </body>

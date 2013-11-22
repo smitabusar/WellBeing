@@ -8,8 +8,6 @@ var app=express()
 						path.join(__dirname,"js")))	
 	.use(express.bodyParser());// parses the request from json, url encoded & multipart format. Eval is not secure to use
 
-//variable to store the data from remedies DB.
-var remediesDB=[];
 var ailments=[{id:1,
 	name:"Common cold",
 	symptoms:["Congestion","Running nose","tired","sore throat"],
@@ -33,32 +31,14 @@ var cure={id:1,
 	{type:"General",method:"sleep with the slanted head. Especially effective for kids"}
 ]};
 
-app.get("/ailments",function(req,res){
-	res.send(ailments);
-	//res.json(remediesDB);
-});
-
-app.get("/ailments/:id",function(req,res){ //not working
-	var id=parseInt(req.param("id")),
-		ailment=_.findWhere(ailments,{id:id});
-	console.log(filter, ailment);
-	res.send(ailment);
-	//res.json(remediesDB);
-});
-
-app.get("/cureTypes",function(req,res){
+app.get("/symptom/:symptom",function(req,res){
+	var symptom=req.param("symptom");
+	console.log(symptom);
 	var remedies=_.pick(cure,"remedies").remedies;
 	var cureTypes=_.uniq(_.pluck(remedies,"type"));
 	cureTypes=_.map(cureTypes,function(type){return {"type":type}});
-	//console.log(cureTypes);
-	res.send(cureTypes);
-	//res.json(remediesDB);
-});
-
-app.get("/remedies",function(req,res){
-	//console.log(_.pick(cure,"remedies"));
-	res.send(_.pick(cure,"remedies").remedies);
-	//res.json(remediesDB);
+	var result =[ailments,remedies,cureTypes]
+	res.send(result);
 });
 
 app.post("/remedies",function(req,res){
